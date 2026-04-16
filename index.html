@@ -1,20 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <title>DEG Site | Coming Soon</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 4rem auto; padding: 0 1rem; text-align: center; line-height: 1.6; color: #333; }
-    h1 { font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 1rem; }
-    p { font-size: 1.2rem; margin-bottom: 2rem; }
-    .orcid { color: #d33; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discrete Emergent Gravity — M. Pinna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMath()"></script>
+<style>
+  :root {
+    --ink:        #1a1916;
+    --ink-mid:    #4a4843;
+    --ink-light:  #8a8784;
+    --paper:      #faf9f6;
+    --paper-warm: #f3f1eb;
+    --rule:       #d6d3cb;
+    --rule-light: #e8e5de;
+    --accent:     #2d4a6e;
+    --accent-mid: #3d5a80;
+    --accent-pale:#e6edf5;
+    --serif: 'EB Garamond', Georgia, serif;
+    --sans:  'DM Sans', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 17px; scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    border-bottom: 1px solid var(--rule);
+    padding: 1.1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+  }
+  .nav-inner {
+    max-width: 1040px; margin: 0 auto; padding: 0 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-brand {
+    font-family: var(--sans); font-size: 0.76rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mid);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.2rem; }
+  .nav-links a {
+    font-family: var(--sans); font-size: 0.82rem; color: var(--ink-mid);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .page { max-width: 1040px; margin: 0 auto; padding: 0 2.5rem; }
+
+  .hero { padding: 5.5rem 0 4.5rem; border-bottom: 1px solid var(--rule); }
+  .hero-label {
+    font-family: var(--sans); font-size: 0.73rem; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 1.6rem;
+  }
+  h1 {
+    font-size: 3.2rem; font-weight: 400; line-height: 1.15;
+    color: var(--ink); margin-bottom: 0.5rem; letter-spacing: -0.01em;
+  }
+  h1 em { font-style: italic; }
+  .hero-sub {
+    font-size: 1.3rem; font-weight: 400; color: var(--ink-mid);
+    margin-bottom: 2rem; line-height: 1.5; max-width: 680px;
+  }
+  .hero-body {
+    font-size: 1.04rem; color: var(--ink-mid);
+    max-width: 640px; margin-bottom: 2.5rem; line-height: 1.8;
+  }
+  .author-line {
+    font-family: var(--sans); font-size: 0.87rem; color: var(--ink-light);
+    display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap;
+  }
+  .author-line a { color: var(--accent-mid); text-decoration: none; }
+  .author-line a:hover { text-decoration: underline; }
+  .sep { color: var(--rule); }
+
+  .section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  h2 {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 2.5rem;
+  }
+
+  /* Featured paper (Letter) */
+  .paper-featured {
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 3px;
+    background: var(--paper);
+    padding: 2.2rem 2.4rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .paper-badge {
+    position: absolute; top: 1.3rem; right: 1.5rem;
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.2rem 0.65rem; border-radius: 2px;
+  }
+  .badge-letter {
+    color: var(--accent-mid); background: var(--accent-pale);
+  }
+  .badge-companion {
+    color: var(--ink-light); background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+  .paper-num {
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-mid); margin-bottom: 0.7rem;
+  }
+  .paper-featured .paper-title {
+    font-size: 1.45rem; font-weight: 400; line-height: 1.3;
+    color: var(--ink); margin-bottom: 1rem;
+  }
+  .paper-featured .paper-abstract {
+    font-size: 0.97rem; color: var(--ink-mid); line-height: 1.75;
+    margin-bottom: 1.3rem; max-width: 720px;
+  }
+
+  /* Key result callout */
+  .result-inline {
+    display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap;
+    background: var(--accent-pale);
+    border-left: 2px solid var(--accent-mid);
+    padding: 0.65rem 1rem; border-radius: 0 2px 2px 0;
+    margin-bottom: 1.4rem;
+  }
+  .ri-label {
+    font-family: var(--sans); font-size: 0.72rem; color: var(--accent-mid);
+    white-space: nowrap; letter-spacing: 0.04em;
+  }
+  .ri-eq { font-size: 1rem; color: var(--accent); }
+
+  /* Companion paper */
+  .paper-companion {
+    border: 1px solid var(--rule-light);
+    border-radius: 3px;
+    background: var(--paper-warm);
+    padding: 1.8rem 2rem;
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  .companion-roman {
+    font-family: var(--serif); font-size: 1.8rem; font-weight: 400;
+    font-style: italic; color: var(--rule); line-height: 1; padding-top: 0.1rem;
+  }
+  .paper-companion .paper-num { color: var(--ink-light); margin-bottom: 0.5rem; }
+  .paper-companion .paper-title {
+    font-size: 1.15rem; font-weight: 400; line-height: 1.35;
+    color: var(--ink); margin-bottom: 0.8rem;
+  }
+  .paper-companion .paper-abstract {
+    font-size: 0.93rem; color: var(--ink-mid); line-height: 1.72; margin-bottom: 1rem;
+  }
+
+  /* Buttons */
+  .paper-links { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
+  .btn-pdf {
+    font-family: var(--sans); font-size: 0.79rem; font-weight: 500;
+    background: var(--accent); color: #fff;
+    border: none; padding: 0.48rem 1rem; border-radius: 2px;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    transition: opacity 0.15s;
+  }
+  .btn-pdf:hover { opacity: 0.85; }
+  .btn-pdf svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .status-note {
+    font-family: var(--sans); font-size: 0.76rem; color: var(--ink-light);
+  }
+
+  /* Results strip */
+  .results-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
+  }
+  @media (max-width: 700px) { .results-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 420px) { .results-grid { grid-template-columns: 1fr; } }
+  .result-cell {
+    background: var(--paper); padding: 1.5rem 1.4rem;
+    border-right: 1px solid var(--rule);
+  }
+  .result-cell:nth-child(4n) { border-right: none; }
+  @media (max-width: 700px) {
+    .result-cell:nth-child(2n) { border-right: none; }
+    .result-cell:nth-child(1), .result-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+  }
+  .result-label {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 0.6rem;
+  }
+  .result-eq { font-size: 0.97rem; color: var(--ink); margin-bottom: 0.4rem; overflow-x: auto; }
+  .result-note {
+    font-family: var(--sans); font-size: 0.74rem; color: var(--ink-light); line-height: 1.5;
+  }
+
+  /* Two-column */
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start;
+  }
+  @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+  .framework-body { font-size: 1.01rem; color: var(--ink-mid); line-height: 1.82; }
+  .framework-body p { margin-bottom: 1rem; }
+  .framework-body p:last-child { margin-bottom: 0; }
+  .framework-body strong { color: var(--ink); font-weight: 500; }
+
+  .context-block { font-size: 0.93rem; color: var(--ink-mid); }
+  .context-block h3 {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 1rem;
+  }
+  .context-block p { margin-bottom: 0.85rem; line-height: 1.75; }
+  .context-block p:last-child { margin-bottom: 0; }
+
+  /* Timeline */
+  .timeline { list-style: none; margin-top: 2rem; }
+  .timeline-head {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 0.8rem;
+  }
+  .timeline li {
+    display: flex; gap: 1rem; align-items: baseline;
+    font-family: var(--sans); font-size: 0.82rem;
+    padding: 0.5rem 0; border-bottom: 1px solid var(--rule-light);
+  }
+  .timeline li:last-child { border-bottom: none; }
+  .tl-roman {
+    font-family: var(--serif); font-style: italic;
+    color: var(--ink-light); min-width: 2rem;
+  }
+  .tl-title { color: var(--ink-mid); flex: 1; }
+  .tl-status { font-size: 0.71rem; color: var(--ink-light); }
+  .tl-status.ready { color: var(--accent-mid); font-weight: 500; }
+
+  /* Contact */
+  .contact-intro {
+    font-size: 1.04rem; color: var(--ink-mid); margin-bottom: 1.8rem; line-height: 1.8;
+  }
+  .contact-email {
+    font-family: var(--serif); font-size: 1.4rem; color: var(--accent-mid);
+    text-decoration: none; display: block; margin-bottom: 1rem;
+  }
+  .contact-email:hover { text-decoration: underline; }
+  .contact-note {
+    font-family: var(--sans); font-size: 0.82rem; color: var(--ink-light); line-height: 1.65;
+  }
+
+  footer { border-top: 1px solid var(--rule); padding: 2rem 0; }
+  .footer-inner {
+    max-width: 1040px; margin: 0 auto; padding: 0 2.5rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .footer-note { font-family: var(--sans); font-size: 0.73rem; color: var(--ink-light); }
+
+  .katex { font-size: 1em !important; }
+</style>
 </head>
 <body>
-  <h1>DEG Site</h1>
-  <p>Discrete Emergent Gravity publication hub.</p>
-  <p>Site live after Papers I &amp; II on arXiv.</p>
-  <p><a href="https://orcid.org/0009-0004-4078-9015" class="orcid" target="_blank" rel="noopener noreferrer">ORCID 0009-0004-4078-9015</a></p>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">Discrete Emergent Gravity</a>
+    <div class="nav-links">
+      <a href="#papers">Papers</a>
+      <a href="#results">Results</a>
+      <a href="#framework">Framework</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <p class="hero-label">Preprint series · Work in progress · 2026</p>
+    <h1>Discrete <em>Emergent</em> Gravity</h1>
+    <p class="hero-sub">Deriving the laws of gravity from the statistics of Planck-scale spacetime atoms</p>
+    <p class="hero-body">
+      A theoretical programme in which macroscopic spacetime — time, Newton's law, the cosmological constant — emerges from the collective behaviour of discrete Planck-scale constituents governed by a single Hamiltonian constraint, with no free parameters fitted to observation.
+    </p>
+    <div class="author-line">
+      <span>Matteo Pinna</span>
+      <span class="sep">·</span>
+      <span>Independent researcher, Madrid</span>
+      <span class="sep">·</span>
+      <a href="https://orcid.org/0009-0004-4078-9015" target="_blank">ORCID 0009-0004-4078-9015</a>
+      <span class="sep">·</span>
+      <a href="#contact">Get in touch</a>
+    </div>
+  </div>
+
+  <!-- Papers -->
+  <div class="section" id="papers">
+    <h2>Papers</h2>
+
+    <!-- Paper II — featured Letter -->
+    <div class="paper-featured">
+      <span class="paper-badge badge-letter">Letter</span>
+      <p class="paper-num">Paper II</p>
+      <p class="paper-title">The Cosmological Constant from Vacuum Atom Statistics</p>
+
+      <div class="result-inline">
+        <span class="ri-label">Zero-parameter prediction —</span>
+        <span class="ri-eq">\(\Lambda_{\text{pred}} \approx 1.1\times10^{-52}\ \text{m}^{-2}\)</span>
+      </div>
+
+      <p class="paper-abstract">
+        Using only the internal degeneracy \(g = 442\) of the spacetime atoms — fixed by the algebra of SU(21)×U(1) embedding the Standard Model gauge group, not fitted to any cosmological observable — the canonical partition function of the atom ensemble yields a cosmological constant consistent with the Planck 2018 observed value \((1.088\pm0.030)\times10^{-52}\ \text{m}^{-2}\) within the theoretical uncertainty of a two-loop renormalisation group derivation. The dark energy equation of state \(w = -1\) follows as an exact geometric corollary; any \(5\sigma\)-confirmed \(w\neq-1\) by DESI, Euclid, or the Nancy Grace Roman Space Telescope constitutes definitive falsification.
+      </p>
+      <div class="paper-links">
+        <a class="btn-pdf" href="Pinna_DEG_II_CosmologicalConstant_VacuumAtomStatistics_PRL.pdf" target="_blank">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>
+          View PDF
+        </a>
+        <span class="status-note">Preprint · pending submission</span>
+      </div>
+    </div>
+
+    <!-- Paper I — companion -->
+    <div class="paper-companion">
+      <div class="companion-roman">I</div>
+      <div>
+        <span class="paper-badge badge-companion" style="position: static; display: inline-block; margin-bottom: 0.5rem;">Companion paper</span>
+        <p class="paper-num">Paper I</p>
+        <p class="paper-title">Time, Matter Coupling, and Newton's Law</p>
+        <p class="paper-abstract">
+          The foundational paper. A collection of \(N\) Planck-scale atoms governed by the Hamiltonian constraint \(H = \sum_n[p_n^2/2m - (\alpha/2)a_n^2] = 0\) gives rise, without additional assumptions, to York time as a collective degree of freedom, the thermodynamic arrow of time as an exact theorem, a consistent quantum matter coupling via wavefunction overlap, and Newton's law with its precise numerical coefficient. Paper II builds directly on these foundations.
+        </p>
+        <div class="paper-links">
+          <a class="btn-pdf" href="Pinna_DEG_I_Time_MatterCoupling_NewtonsLaw_PRD.pdf" target="_blank">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>
+            View PDF
+          </a>
+          <span class="status-note">Preprint · pending submission</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-family: var(--sans); font-size: 0.78rem; color: var(--ink-light); margin-top: 1.2rem; line-height: 1.6;">
+      Both papers are preprints, made available here prior to journal submission. They have not been peer-reviewed. Comments and corrections are welcome.
+    </p>
+  </div>
+
+  <!-- Results -->
+  <div class="section" id="results">
+    <h2>Selected results</h2>
+    <div class="results-grid">
+      <div class="result-cell">
+        <p class="result-label">Single postulate</p>
+        <p class="result-eq">\(H = \sum_n\!\left[\frac{p_n^2}{2m} - \frac{\alpha}{2}a_n^2\right] = 0\)</p>
+        <p class="result-note">All results are derived from this constraint alone — no background metric, no additional fields.</p>
+      </div>
+      <div class="result-cell">
+        <p class="result-label">Λ prediction</p>
+        <p class="result-eq">\(\Lambda_{\text{pred}} \approx 1.1\times10^{-52}\ \text{m}^{-2}\)</p>
+        <p class="result-note">Observed: \(1.088\times10^{-52}\ \text{m}^{-2}\) (Planck 2018). No parameter fitted to this value.</p>
+      </div>
+      <div class="result-cell">
+        <p class="result-label">Internal degeneracy</p>
+        <p class="result-eq">\(g = 442\)</p>
+        <p class="result-note">Fixed by the SU(21)×U(1) algebra required to embed the SM gauge group. Determines \(\Lambda\).</p>
+      </div>
+      <div class="result-cell">
+        <p class="result-label">Falsification target</p>
+        <p class="result-eq">\(w = -1.000\)</p>
+        <p class="result-note">Exact geometric corollary. \(5\sigma\) detection of \(w\neq-1\) by DESI or Euclid falsifies this sector.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Framework -->
+  <div class="section" id="framework">
+    <h2>Framework &amp; context</h2>
+    <div class="two-col">
+      <div class="framework-body">
+        <p>
+          DEG posits that spacetime is a statistical aggregate of \(N\) discrete Planck-scale atoms, each characterised by a size parameter \(a_n\) and an internal Hilbert space of dimension \(g = 442\). The dynamics is governed by a single Hamiltonian constraint — no background metric, no continuous fields at the fundamental level.
+        </p>
+        <p>
+          Papers I and II derive, without additional assumptions: the emergence of a macroscopic time coordinate; a consistent coupling of quantum matter to the discrete geometry; Newton's law with its correct numerical coefficient; and the observed cosmological constant as a consequence of vacuum atom statistics.
+        </p>
+        <p>
+          <strong>What is not claimed.</strong> DEG does not yet constitute a complete theory of quantum gravity. The derivations rest on statistical and thermodynamic assumptions whose justification at the full quantum level is an open problem. The programme is offered as a coherent and falsifiable research direction, not as a finished theory. Open problems and limitations are stated explicitly in each paper.
+        </p>
+
+        <div class="timeline" style="margin-top: 2.5rem;">
+          <p class="timeline-head">Programme roadmap — eleven papers, four phases</p>
+          <ul class="timeline">
+            <li>
+              <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 0</span>
+              <span class="tl-title">Foundations — time emergence, Newton's law, cosmological constant</span>
+              <span class="tl-status ready">current</span>
+            </li>
+            <li>
+              <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 1</span>
+              <span class="tl-title">Particle physics — Higgs mass, Standard Model embedding</span>
+              <span class="tl-status">upcoming</span>
+            </li>
+            <li>
+              <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 2</span>
+              <span class="tl-title">Quantum gravity — black hole unitarity, gravitational wave signatures</span>
+              <span class="tl-status">upcoming</span>
+            </li>
+            <li>
+              <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 3</span>
+              <span class="tl-title">Cosmology — galaxy dynamics, primordial universe</span>
+              <span class="tl-status">planned</span>
+            </li>
+            <li>
+              <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 4</span>
+              <span class="tl-title">Precision completions — fermion masses, baryogenesis, parameters</span>
+              <span class="tl-status">planned</span>
+            </li>
+          </ul>
+          <p style="font-family: var(--sans); font-size: 0.72rem; color: var(--ink-light); margin-top: 0.8rem; line-height: 1.55;">This page is updated as each paper becomes available.</p>
+        </div>
+      </div>
+
+      <div class="context-block">
+        <h3>Situating the approach</h3>
+        <p>
+          Like loop quantum gravity and causal set theory, DEG takes discreteness as fundamental. It differs in using a statistical mechanics approach: gravity and time emerge thermodynamically rather than being quantised geometrically.
+        </p>
+        <p>
+          The cosmological constant result is, to our knowledge, the first zero-parameter derivation of the observed \(\Lambda\) from any discrete spacetime programme. The value of \(g = 442\) — a group-theoretic integer fixed by the Standard Model embedding — sets the scale of dark energy. The claim is specific and falsifiable; the uncertainty budget is given explicitly in Paper II.
+        </p>
+        <p>
+          The programme addresses the cosmological constant problem not by cancelling QFT vacuum contributions but by providing an alternative mechanism in which the relevant UV cutoff is the micrometre-scale atom spacing \(a \approx 0.74\,\mu\text{m}\) rather than the Planck length, suppressing vacuum energy by \((a/\ell_P)^3 \sim 10^{86}\).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="section" id="about">
+    <h2>About</h2>
+    <div class="two-col">
+      <div class="framework-body">
+        <p>
+          Matteo Pinna is a theoretical physicist working independently on quantum gravity and emergent spacetime. His interest in emergent gravity began during his thesis work in 2018, shaped by a conviction that the foundations of physics should admit a simple, parameter-free description — and a specific dissatisfaction with the treatment of time in general relativity.
+        </p>
+        <p>
+          The starting point was a refusal to accept time as a curved fourth dimension behaving differently from the other three. If space is emergent, time should be too — and the arrow of time, rather than being imposed by initial conditions, should follow from the statistics of whatever is fundamental. DEG is the formalisation of that programme, developed over several years alongside a career in technology.
+        </p>
+        <p>
+          He is based in Madrid.
+        </p>
+      </div>
+      <div style="font-family: var(--sans); font-size: 0.85rem; color: var(--ink-light); line-height: 1.8; padding-top: 0.2rem;">
+        <p style="margin-bottom: 0.5rem; color: var(--ink-mid); font-size: 0.9rem; font-family: var(--serif);">Matteo Pinna</p>
+        <p style="margin-bottom: 0.3rem;">Independent researcher</p>
+        <p style="margin-bottom: 0.3rem;">Madrid, Spain</p>
+        <p style="margin-bottom: 1.2rem;"><a href="https://orcid.org/0009-0004-4078-9015" target="_blank" style="color: var(--ink-light);">ORCID 0009-0004-4078-9015</a></p>
+        <p style="margin-bottom: 0.3rem;"><a href="https://researchgate.net" target="_blank" style="color: var(--ink-light);">ResearchGate</a> <span style="font-size: 0.76rem;">(profile forthcoming)</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="section" id="contact">
+    <h2>Contact</h2>
+    <div class="two-col">
+      <div>
+        <p class="contact-intro">
+          If you work in quantum gravity, emergent spacetime, or related areas and find this programme of interest, I would welcome correspondence — critical feedback especially.
+        </p>
+        <a class="contact-email" href="mailto:matteo@deg-gravity.com">matteo@deg-gravity.com</a>
+        <p class="contact-note">
+          I am an independent researcher based in Madrid. Collaboration enquiries and comments from researchers with relevant expertise are very welcome.<br><br>
+          The two papers above contain full derivations, explicit uncertainty budgets, and a list of open problems. Nothing is hidden behind a paywall or submission requirement.
+        </p>
+      </div>
+      <div style="font-size: 0.93rem; color: var(--ink-mid); line-height: 1.78; padding-top: 0.2rem;">
+        <p style="margin-bottom: 1rem;">
+          Both preprints are available directly on this page as PDF. They represent work in progress and will be updated as revisions are made prior to submission.
+        </p>
+        <p style="color: var(--ink-light); font-family: var(--sans); font-size: 0.82rem; line-height: 1.65;">
+          If you are a physicist encountering DEG for the first time and would like to discuss the approach, its foundations, or its limitations, please feel free to write. I am also happy to share derivation notes on specific points not fully developed in the papers.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-note">© 2026 Matteo Pinna</span>
+    <span class="footer-note">Preprints. Not peer-reviewed.</span>
+  </div>
+</footer>
+
+<script>
+function renderMath() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ],
+    throwOnError: false
+  });
+}
+</script>
 </body>
 </html>
