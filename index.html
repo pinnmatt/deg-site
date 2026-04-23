@@ -190,7 +190,7 @@
 
   /* Results strip */
   .results-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr);
+    display: grid; grid-template-columns: repeat(3, 1fr);
     border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
   }
   @media (max-width: 700px) { .results-grid { grid-template-columns: 1fr 1fr; } }
@@ -198,11 +198,15 @@
   .result-cell {
     background: var(--paper); padding: 1.5rem 1.4rem;
     border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
   }
-  .result-cell:nth-child(4n) { border-right: none; }
+  .result-cell:nth-child(3n) { border-right: none; }
+  .result-cell:nth-child(4), .result-cell:nth-child(5), .result-cell:nth-child(6) { border-bottom: none; }
   @media (max-width: 700px) {
+    .result-cell:nth-child(3n) { border-right: 1px solid var(--rule); }
     .result-cell:nth-child(2n) { border-right: none; }
-    .result-cell:nth-child(1), .result-cell:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .result-cell:nth-child(5), .result-cell:nth-child(6) { border-bottom: none; }
+    .result-cell:nth-child(4) { border-bottom: 1px solid var(--rule); }
   }
   .result-label {
     font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
@@ -276,6 +280,43 @@
   .footer-note { font-family: var(--sans); font-size: 0.73rem; color: var(--ink-light); }
 
   .katex { font-size: 1em !important; }
+
+  /* Phase structure */
+  .phase-block { margin-bottom: 3rem; }
+  .phase-block:last-of-type { margin-bottom: 0; }
+
+  .phase-header {
+    display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .phase-label {
+    font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-light);
+    min-width: 4.5rem;
+  }
+  .phase-theme {
+    font-family: var(--sans); font-size: 0.84rem; color: var(--ink-mid); flex: 1;
+  }
+  .phase-status {
+    font-family: var(--sans); font-size: 0.72rem; color: var(--ink-light);
+  }
+  .phase-status-current {
+    color: var(--accent-mid); font-weight: 500;
+  }
+
+  .phase-placeholder {
+    border: 1px dashed var(--rule);
+    border-radius: 3px;
+    padding: 1.4rem 1.8rem;
+    background: var(--paper);
+  }
+  .phase-placeholder p {
+    font-family: var(--sans); font-size: 0.83rem;
+    color: var(--ink-light); line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -317,51 +358,104 @@
   <div class="section" id="papers">
     <h2>Papers</h2>
 
-    <!-- Paper II — featured Letter -->
-    <div class="paper-featured">
-      <span class="paper-badge badge-letter">Letter</span>
-      <p class="paper-num">Paper II</p>
-      <p class="paper-title">The Cosmological Constant from Vacuum Atom Statistics</p>
-
-      <div class="result-inline">
-        <span class="ri-label">Zero-parameter prediction —</span>
-        <span class="ri-eq">\(\Lambda_{\text{pred}} \approx 1.1\times10^{-52}\ \text{m}^{-2}\)</span>
+    <!-- Phase 1 — particle physics -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <span class="phase-label">Phase 1</span>
+        <span class="phase-theme">Particle physics — Higgs mass, Standard Model embedding</span>
+        <span class="phase-status phase-status-current">Current</span>
       </div>
 
-      <p class="paper-abstract">
-        Using only the internal degeneracy \(g = 442\) of the spacetime atoms — fixed by the algebra of SU(21)×U(1) embedding the Standard Model gauge group, not fitted to any cosmological observable — the canonical partition function of the atom ensemble yields a cosmological constant consistent with the Planck 2018 observed value \((1.088\pm0.030)\times10^{-52}\ \text{m}^{-2}\) within the theoretical uncertainty of a two-loop renormalisation group derivation. The dark energy equation of state \(w = -1\) follows as an exact geometric corollary; any \(5\sigma\)-confirmed \(w\neq-1\) by DESI, Euclid, or the Nancy Grace Roman Space Telescope constitutes definitive falsification.
-      </p>
-      <div class="paper-links">
-        <a class="btn-pdf" href="Pinna_DEG_II_CosmologicalConstant_VacuumAtomStatistics.pdf" target="_blank">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>
-          View PDF
-        </a>
-        <span class="status-note">Preprint · pending submission</span>
-      </div>
-    </div>
-
-    <!-- Paper I — companion -->
-    <div class="paper-companion">
-      <div class="companion-roman">I</div>
-      <div>
-        <span class="paper-badge badge-companion" style="position: static; display: inline-block; margin-bottom: 0.5rem;">Companion paper</span>
-        <p class="paper-num">Paper I</p>
-        <p class="paper-title">Time, Matter Coupling, and Newton's Law</p>
+      <!-- Paper III — featured Letter -->
+      <div class="paper-featured">
+        <span class="paper-badge badge-letter">Letter</span>
+        <p class="paper-num">Paper III</p>
+        <p class="paper-title">The Higgs Boson Mass from CP Violation and Baryon Asymmetry</p>
+        <div class="result-inline">
+          <span class="ri-label">Zero-parameter prediction —</span>
+          <span class="ri-eq">\(m_H = 124.8 \pm 2.4\ \text{GeV}\)</span>
+        </div>
         <p class="paper-abstract">
-          The foundational paper. A collection of \(N\) Planck-scale atoms governed by the Hamiltonian constraint \(H = \sum_n[p_n^2/2m - (\alpha/2)a_n^2] = 0\) gives rise, without additional assumptions, to York time as a collective degree of freedom, the thermodynamic arrow of time as an exact theorem, a consistent quantum matter coupling via wavefunction overlap, and Newton's law with its precise numerical coefficient. Paper II builds directly on these foundations.
+          The Standard Model offers no explanation for the Higgs boson mass. We show that the DEG framework predicts \(m_H\) from CP-violating observables alone, with no parameter fitted to electroweak data. In DEG, the Higgs doublet is a composite pseudo-Nambu-Goldstone boson of the family-sector chiral symmetry broken at \(\Lambda_{\mathrm{fam}} \sim 3\ \text{TeV}\). The single real parameter of the Higgs sector, the phase \(\varphi_{\mathrm{DEG}}\), is uniquely determined by the CKM angle \(\delta_{\mathrm{CKM}} = 1.20\ \text{rad}\) and the baryon-to-photon ratio \(\eta_B = (6.12\pm0.04)\times10^{-10}\). Propagating through the Coleman-Weinberg potential yields \(m_H = 124.8\pm 2.4\ \text{GeV}\), a deviation of \(0.17\,\sigma\) from the PDG value. Seven independent constraints on \(\varphi_{\mathrm{DEG}}\) are satisfied simultaneously. The primary falsification target is the triple Higgs coupling \(\kappa_\lambda^{\mathrm{DEG}} = -1.449\pm0.17\), accessible at HL-LHC and decisive at FCC-hh.
         </p>
         <div class="paper-links">
-          <a class="btn-pdf" href="Pinna_DEG_I_Time_MatterCoupling_NewtonsLaw_FINAL.pdf" target="_blank">
+          <a class="btn-pdf" href="Pinna_DEG_III_HiggsMass_CPViolation_PRL.pdf" target="_blank">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>
             View PDF
           </a>
           <span class="status-note">Preprint · pending submission</span>
         </div>
       </div>
+
+      <!-- Paper IV — companion -->
+      <div class="paper-companion">
+        <div class="companion-roman">IV</div>
+        <div>
+          <span class="paper-badge badge-companion" style="position: static; display: inline-block; margin-bottom: 0.5rem;">Companion paper</span>
+          <p class="paper-num">Paper IV</p>
+          <p class="paper-title">The Standard Model from SU(21) — Gauge Embedding, Unification, and Proton Decay</p>
+          <p class="paper-abstract">
+            The technical foundation for Paper III. The full Standard Model gauge group is derived from an SU(21) embedding chain with no fitting; three generations arise from \(\mathrm{SU}(3)_{\mathrm{family}} \subset \mathrm{SU}(16)\) and all SM quantum numbers are verified. The paper proves in full the \(\xi\)-Independence and Decoupling Theorems stated in Paper III, derives the Coleman-Weinberg potential, and establishes doublet-triplet splitting algebraically. Proton decay via dimension-6 operators predicts \(\tau_p \sim 10^{33\text{--}34}\ \text{yr}\), testable at Hyper-Kamiokande. Fine-tuning is quantified explicitly: \(\Delta = 18.2\) at the canonical point, \(\Delta_{\min} = 5\pm2\) under optimal construction.
+          </p>
+          <div class="paper-links">
+            <span class="status-note">In preparation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 0 — foundation -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <span class="phase-label">Phase 0</span>
+        <span class="phase-theme">Foundations — time emergence, Newton's law, cosmological constant</span>
+        <span class="phase-status">Submitted</span>
+      </div>
+
+      <!-- Paper II — featured Letter -->
+      <div class="paper-featured">
+        <span class="paper-badge badge-letter">Letter</span>
+        <p class="paper-num">Paper II</p>
+        <p class="paper-title">The Cosmological Constant from Vacuum Atom Statistics</p>
+        <div class="result-inline">
+          <span class="ri-label">Zero-parameter prediction —</span>
+          <span class="ri-eq">\(\Lambda_{\text{pred}} \approx 1.1\times10^{-52}\ \text{m}^{-2}\)</span>
+        </div>
+        <p class="paper-abstract">
+          Using only the internal degeneracy \(g = 442\) of the spacetime atoms — fixed by the algebra of SU(21)×U(1) embedding the Standard Model gauge group, not fitted to any cosmological observable — the canonical partition function of the atom ensemble yields a cosmological constant consistent with the Planck 2018 observed value \((1.088\pm0.030)\times10^{-52}\ \text{m}^{-2}\) within the theoretical uncertainty of a two-loop renormalisation group derivation. The dark energy equation of state \(w = -1\) follows as an exact geometric corollary; any \(5\sigma\)-confirmed \(w\neq-1\) by DESI, Euclid, or the Nancy Grace Roman Space Telescope constitutes definitive falsification.
+        </p>
+        <div class="paper-links">
+          <a class="btn-pdf" href="Pinna_DEG_II_CosmologicalConstant_VacuumAtomStatistics.pdf" target="_blank">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>
+            View PDF
+          </a>
+          <span class="status-note">Submitted to Physical Review Letters</span>
+        </div>
+      </div>
+
+      <!-- Paper I — companion -->
+      <div class="paper-companion">
+        <div class="companion-roman">I</div>
+        <div>
+          <span class="paper-badge badge-companion" style="position: static; display: inline-block; margin-bottom: 0.5rem;">Companion paper</span>
+          <p class="paper-num">Paper I</p>
+          <p class="paper-title">Time, Matter Coupling, and Newton's Law</p>
+          <p class="paper-abstract">
+            The foundational paper. A collection of \(N\) Planck-scale atoms governed by the Hamiltonian constraint \(H = \sum_n[p_n^2/2m - (\alpha/2)a_n^2] = 0\) gives rise, without additional assumptions, to York time as a collective degree of freedom, the thermodynamic arrow of time as an exact theorem, a consistent quantum matter coupling via wavefunction overlap, and Newton's law with its precise numerical coefficient. Paper II builds directly on these foundations.
+          </p>
+          <div class="paper-links">
+            <a class="btn-pdf" href="Pinna_DEG_I_Time_MatterCoupling_NewtonsLaw_FINAL.pdf" target="_blank">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>
+              View PDF
+            </a>
+            <span class="status-note">Submitted to Physical Review D</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <p style="font-family: var(--sans); font-size: 0.78rem; color: var(--ink-light); margin-top: 1.2rem; line-height: 1.6;">
-      Both papers are preprints, made available here prior to journal submission. They have not been peer-reviewed. Comments and corrections are welcome.
+      Papers are made available here as preprints prior to journal submission. They have not been peer-reviewed. Comments and corrections are welcome.
     </p>
   </div>
 
@@ -375,19 +469,29 @@
         <p class="result-note">All results are derived from this constraint alone — no background metric, no additional fields.</p>
       </div>
       <div class="result-cell">
-        <p class="result-label">Λ prediction</p>
+        <p class="result-label">Cosmological constant</p>
         <p class="result-eq">\(\Lambda_{\text{pred}} \approx 1.1\times10^{-52}\ \text{m}^{-2}\)</p>
         <p class="result-note">Observed: \(1.088\times10^{-52}\ \text{m}^{-2}\) (Planck 2018). No parameter fitted to this value.</p>
       </div>
       <div class="result-cell">
-        <p class="result-label">Internal degeneracy</p>
-        <p class="result-eq">\(g = 442\)</p>
-        <p class="result-note">Fixed by the SU(21)×U(1) algebra required to embed the SM gauge group. Determines \(\Lambda\).</p>
+        <p class="result-label">Higgs boson mass</p>
+        <p class="result-eq">\(m_H = 124.8 \pm 2.4\ \text{GeV}\)</p>
+        <p class="result-note">Derived from \(\delta_{\mathrm{CKM}}\) and \(\eta_B\) alone. PDG: \(125.20\pm0.11\ \text{GeV}\) — deviation of \(0.17\,\sigma\).</p>
       </div>
       <div class="result-cell">
-        <p class="result-label">Falsification target</p>
+        <p class="result-label">Internal degeneracy</p>
+        <p class="result-eq">\(g = 442\)</p>
+        <p class="result-note">Fixed by SU(21)×U(1) embedding the SM gauge group. Determines \(\Lambda\), the area spectrum, and black hole entropy.</p>
+      </div>
+      <div class="result-cell">
+        <p class="result-label">Dark energy — falsification</p>
         <p class="result-eq">\(w = -1.000\)</p>
-        <p class="result-note">Exact geometric corollary. \(5\sigma\) detection of \(w\neq-1\) by DESI or Euclid falsifies this sector.</p>
+        <p class="result-note">Exact geometric corollary of Paper II. Any \(5\sigma\) detection of \(w\neq-1\) by DESI or Euclid falsifies this sector.</p>
+      </div>
+      <div class="result-cell">
+        <p class="result-label">Higgs coupling — falsification</p>
+        <p class="result-eq">\(\kappa_\lambda = -1.449 \pm 0.17\)</p>
+        <p class="result-note">Primary falsification target of Paper III. Accessible at HL-LHC; decisive at FCC-hh.</p>
       </div>
     </div>
   </div>
@@ -413,12 +517,12 @@
             <li>
               <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 0</span>
               <span class="tl-title">Foundations — time emergence, Newton's law, cosmological constant</span>
-              <span class="tl-status ready">current</span>
+              <span class="tl-status ready">submitted</span>
             </li>
             <li>
               <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 1</span>
               <span class="tl-title">Particle physics — Higgs mass, Standard Model embedding</span>
-              <span class="tl-status">upcoming</span>
+              <span class="tl-status ready">current</span>
             </li>
             <li>
               <span class="tl-roman" style="min-width: 3.5rem; font-size: 0.75rem; font-style: normal; font-family: var(--sans);">Phase 2</span>
