@@ -189,34 +189,7 @@
   }
 
   /* Results strip */
-  .results-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
-  }
-  @media (max-width: 700px) { .results-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 420px) { .results-grid { grid-template-columns: 1fr; } }
-  .result-cell {
-    background: var(--paper); padding: 1.5rem 1.4rem;
-    border-right: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-  }
-  .result-cell:nth-child(3n) { border-right: none; }
-  .result-cell:nth-child(4), .result-cell:nth-child(5), .result-cell:nth-child(6) { border-bottom: none; }
-  @media (max-width: 700px) {
-    .result-cell:nth-child(3n) { border-right: 1px solid var(--rule); }
-    .result-cell:nth-child(2n) { border-right: none; }
-    .result-cell:nth-child(5), .result-cell:nth-child(6) { border-bottom: none; }
-    .result-cell:nth-child(4) { border-bottom: 1px solid var(--rule); }
-  }
-  .result-label {
-    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
-    letter-spacing: 0.13em; text-transform: uppercase;
-    color: var(--ink-light); margin-bottom: 0.6rem;
-  }
-  .result-eq { font-size: 0.97rem; color: var(--ink); margin-bottom: 0.4rem; overflow-x: auto; }
-  .result-note {
-    font-family: var(--sans); font-size: 0.74rem; color: var(--ink-light); line-height: 1.5;
-  }
+
 
   /* Two-column */
   .two-col {
@@ -281,7 +254,63 @@
 
   .katex { font-size: 1em !important; }
 
-  /* Phase structure */
+  /* Results structured layout */
+  .results-structured {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule); border-radius: 3px; overflow: hidden;
+  }
+  @media (max-width: 680px) { .results-structured { grid-template-columns: 1fr; } }
+
+  .results-col-header {
+    padding: 0.9rem 1.4rem;
+    background: var(--paper-warm);
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .results-col-header:last-of-type,
+  .results-col-header-mid + .results-col-header { border-right: none; }
+  .results-col-header-mid {
+    background: var(--accent-pale);
+    border-right: 1px solid var(--rule);
+  }
+  .results-col-title {
+    font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-mid);
+  }
+  .results-col-header-mid .results-col-title { color: var(--accent); }
+  .results-col-desc {
+    font-family: var(--sans); font-size: 0.73rem; color: var(--ink-light);
+  }
+
+  .result-cell {
+    background: var(--paper); padding: 1.4rem 1.4rem;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+  .result-cell-mid {
+    border-right: 1px solid var(--rule);
+  }
+  .result-cell-bottom { border-bottom: none; }
+  .result-cell:nth-child(3n) { border-right: none; }
+  @media (max-width: 680px) {
+    .results-col-header,
+    .results-col-header-mid { border-right: none; border-bottom: 1px solid var(--rule); }
+    .result-cell,
+    .result-cell-mid { border-right: none; border-bottom: 1px solid var(--rule); }
+    .result-cell-bottom:last-child { border-bottom: none; }
+    .result-cell-bottom { border-bottom: 1px solid var(--rule); }
+  }
+
+  .result-label {
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 0.6rem;
+  }
+  .result-eq { font-size: 0.97rem; color: var(--ink); margin-bottom: 0.4rem; overflow-x: auto; }
+  .result-note {
+    font-family: var(--sans); font-size: 0.74rem; color: var(--ink-light); line-height: 1.5;
+  }
   .phase-block { margin-bottom: 3rem; }
   .phase-block:last-of-type { margin-bottom: 0; }
 
@@ -341,7 +370,8 @@
     <h1>Discrete <em>Emergent</em> Gravity</h1>
     <p class="hero-sub">Deriving the laws of gravity from the statistics of Planck-scale spacetime atoms</p>
     <p class="hero-body">
-        A theoretical programme deriving the laws of physics — gravity, spacetime, and particle physics observables — from the collective behaviour of discrete Planck-scale constituents governed by a single Hamiltonian constraint, with no free parameters fitted to observation. Current results include the cosmological constant and the Higgs boson mass.    </p>
+      A theoretical programme deriving the laws of physics — gravity, spacetime, and particle physics observables — from the collective behaviour of discrete Planck-scale constituents governed by a single Hamiltonian constraint, with no free parameters fitted to observation. Current results include the cosmological constant and the Higgs boson mass.
+    </p>
     <div class="author-line">
       <span>Matteo Pinna</span>
       <span class="sep">·</span>
@@ -461,37 +491,56 @@
   <!-- Results -->
   <div class="section" id="results">
     <h2>Selected results</h2>
-    <div class="results-grid">
+    <div class="results-structured">
+
+      <!-- Row 1: headers -->
+      <div class="results-col-header">
+        <span class="results-col-title">Foundation</span>
+        <span class="results-col-desc">What goes in</span>
+      </div>
+      <div class="results-col-header results-col-header-mid">
+        <span class="results-col-title">Predictions</span>
+        <span class="results-col-desc">What comes out</span>
+      </div>
+      <div class="results-col-header">
+        <span class="results-col-title">Falsification</span>
+        <span class="results-col-desc">What would kill it</span>
+      </div>
+
+      <!-- Row 2: first cells -->
       <div class="result-cell">
         <p class="result-label">Single postulate</p>
         <p class="result-eq">\(H = \sum_n\!\left[\frac{p_n^2}{2m} - \frac{\alpha}{2}a_n^2\right] = 0\)</p>
-        <p class="result-note">All results are derived from this constraint alone — no background metric, no additional fields.</p>
+        <p class="result-note">All results follow from this constraint alone. No background metric, no continuous fields, no additional assumptions.</p>
       </div>
-      <div class="result-cell">
+      <div class="result-cell result-cell-mid">
         <p class="result-label">Cosmological constant</p>
         <p class="result-eq">\(\Lambda_{\text{pred}} \approx 1.1\times10^{-52}\ \text{m}^{-2}\)</p>
-        <p class="result-note">Observed: \(1.088\times10^{-52}\ \text{m}^{-2}\) (Planck 2018). No parameter fitted to this value.</p>
+        <p class="result-note">Observed: \(1.088\times10^{-52}\ \text{m}^{-2}\) (Planck 2018). Derived from \(g=442\) alone — zero free parameters. Paper II.</p>
       </div>
       <div class="result-cell">
+        <p class="result-label">Dark energy equation of state</p>
+        <p class="result-eq">\(w = -1.000\)</p>
+        <p class="result-note">Exact geometric corollary. Any \(5\sigma\) detection of \(w\neq-1\) by DESI, Euclid, or Roman falsifies this sector.</p>
+      </div>
+
+      <!-- Row 3: second cells -->
+      <div class="result-cell result-cell-bottom">
+        <p class="result-label">Group-theoretic input</p>
+        <p class="result-eq">\(g = 442\)</p>
+        <p class="result-note">Internal degeneracy fixed by SU(21)×U(1) embedding the SM gauge group. The sole discrete input; never fitted to any observable.</p>
+      </div>
+      <div class="result-cell result-cell-mid result-cell-bottom">
         <p class="result-label">Higgs boson mass</p>
         <p class="result-eq">\(m_H = 124.8 \pm 2.4\ \text{GeV}\)</p>
-        <p class="result-note">Derived from \(\delta_{\mathrm{CKM}}\) and \(\eta_B\) alone. PDG: \(125.20\pm0.11\ \text{GeV}\) — deviation of \(0.17\,\sigma\).</p>
+        <p class="result-note">Derived from \(\delta_{\mathrm{CKM}}\) and \(\eta_B\) alone. PDG: \(125.20\pm0.11\ \text{GeV}\) — \(0.17\,\sigma\) deviation. Paper III.</p>
       </div>
-      <div class="result-cell">
-        <p class="result-label">Internal degeneracy</p>
-        <p class="result-eq">\(g = 442\)</p>
-        <p class="result-note">Fixed by SU(21)×U(1) embedding the SM gauge group. Determines \(\Lambda\), the area spectrum, and black hole entropy.</p>
-      </div>
-      <div class="result-cell">
-        <p class="result-label">Dark energy — falsification</p>
-        <p class="result-eq">\(w = -1.000\)</p>
-        <p class="result-note">Exact geometric corollary of Paper II. Any \(5\sigma\) detection of \(w\neq-1\) by DESI or Euclid falsifies this sector.</p>
-      </div>
-      <div class="result-cell">
-        <p class="result-label">Higgs coupling — falsification</p>
+      <div class="result-cell result-cell-bottom">
+        <p class="result-label">Triple Higgs coupling</p>
         <p class="result-eq">\(\kappa_\lambda = -1.449 \pm 0.17\)</p>
         <p class="result-note">Primary falsification target of Paper III. Accessible at HL-LHC; decisive at FCC-hh.</p>
       </div>
+
     </div>
   </div>
 
