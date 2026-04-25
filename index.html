@@ -47,6 +47,7 @@
   .nav-inner {
     max-width: 1040px; margin: 0 auto; padding: 0 2.5rem;
     display: flex; justify-content: space-between; align-items: center;
+    position: relative;
   }
   .nav-brand {
     font-family: var(--sans); font-size: 0.76rem; font-weight: 500;
@@ -59,6 +60,33 @@
     text-decoration: none; transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--accent); }
+
+  /* Hamburger */
+  .nav-toggle {
+    display: none; background: none; border: none; cursor: pointer;
+    padding: 0.2rem; color: var(--ink-mid); line-height: 1;
+  }
+
+  @media (max-width: 620px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none;
+      flex-direction: column; gap: 0;
+      position: absolute; top: calc(100% + 1.1rem); left: -2.5rem; right: -2.5rem;
+      background: var(--paper);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 0.4rem 2.5rem 0.8rem;
+      z-index: 99;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--rule-light);
+      font-size: 0.88rem;
+    }
+    .nav-links a:last-child { border-bottom: none; }
+  }
 
   .page { max-width: 1040px; margin: 0 auto; padding: 0 2.5rem; }
 
@@ -189,9 +217,6 @@
     font-family: var(--sans); font-size: 0.76rem; color: var(--ink-light);
   }
 
-  /* Results strip */
-
-
   /* Two-column */
   .two-col {
     display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start;
@@ -289,9 +314,7 @@
     border-bottom: 1px solid var(--rule);
     border-right: 1px solid var(--rule);
   }
-  .result-cell-mid {
-    border-right: 1px solid var(--rule);
-  }
+  .result-cell-mid { border-right: 1px solid var(--rule); }
   .result-cell-bottom { border-bottom: none; }
   .result-cell:nth-child(3n) { border-right: none; }
   @media (max-width: 680px) {
@@ -312,20 +335,19 @@
   .result-note {
     font-family: var(--sans); font-size: 0.74rem; color: var(--ink-light); line-height: 1.5;
   }
+
+  /* Phase structure */
   .phase-block { margin-bottom: 3rem; }
   .phase-block:last-of-type { margin-bottom: 0; }
-
   .phase-header {
     display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.8rem;
+    margin-bottom: 1.5rem; padding-bottom: 0.8rem;
     border-bottom: 1px solid var(--rule);
   }
   .phase-label {
     font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
     letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--ink-light);
-    min-width: 4.5rem;
+    color: var(--ink-light); min-width: 4.5rem;
   }
   .phase-theme {
     font-family: var(--sans); font-size: 0.84rem; color: var(--ink-mid); flex: 1;
@@ -333,15 +355,11 @@
   .phase-status {
     font-family: var(--sans); font-size: 0.72rem; color: var(--ink-light);
   }
-  .phase-status-current {
-    color: var(--accent-mid); font-weight: 500;
-  }
+  .phase-status-current { color: var(--accent-mid); font-weight: 500; }
 
   .phase-placeholder {
-    border: 1px dashed var(--rule);
-    border-radius: 3px;
-    padding: 1.4rem 1.8rem;
-    background: var(--paper);
+    border: 1px dashed var(--rule); border-radius: 3px;
+    padding: 1.4rem 1.8rem; background: var(--paper);
   }
   .phase-placeholder p {
     font-family: var(--sans); font-size: 0.83rem;
@@ -354,7 +372,14 @@
 <nav>
   <div class="nav-inner">
     <a class="nav-brand" href="#">Discrete Emergent Gravity</a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6">
+        <line x1="3" y1="6" x2="17" y2="6"/>
+        <line x1="3" y1="10" x2="17" y2="10"/>
+        <line x1="3" y1="14" x2="17" y2="14"/>
+      </svg>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="#papers">Papers</a>
       <a href="#results">Results</a>
       <a href="#framework">Framework</a>
@@ -512,7 +537,7 @@
         <span class="results-col-desc">What would kill it</span>
       </div>
 
-      <!-- Row 2: first cells -->
+      <!-- Row 2 -->
       <div class="result-cell">
         <p class="result-label">Single postulate</p>
         <p class="result-eq">\(H = \sum_n\!\left[\frac{p_n^2}{2m} - \frac{\alpha}{2}a_n^2\right] = 0\)</p>
@@ -529,7 +554,7 @@
         <p class="result-note">Exact geometric corollary. Any \(5\sigma\) detection of \(w\neq-1\) by DESI, Euclid, or Roman falsifies this sector.</p>
       </div>
 
-      <!-- Row 3: second cells -->
+      <!-- Row 3 -->
       <div class="result-cell result-cell-bottom">
         <p class="result-label">Group-theoretic input</p>
         <p class="result-eq">\(g = 442\)</p>
@@ -558,7 +583,7 @@
           DEG posits that spacetime is a statistical aggregate of \(N\) discrete Planck-scale atoms, each characterised by a size parameter \(a_n\) and an internal Hilbert space of dimension \(g = 442\). The dynamics is governed by a single Hamiltonian constraint — no background metric, no continuous fields at the fundamental level.
         </p>
         <p>
-          Papers I and II derive, without additional assumptions: the emergence of a macroscopic time coordinate; a consistent coupling of quantum matter to the discrete geometry; Newton's law with its correct numerical coefficient; and the observed cosmological constant as a consequence of vacuum atom statistics.
+          Papers I and II derive, without additional assumptions: the emergence of a macroscopic time coordinate; a consistent coupling of quantum matter to the discrete geometry; Newton's law with its correct numerical coefficient; and the observed cosmological constant as a consequence of vacuum atom statistics. Papers III and IV extend the programme to the particle physics sector, deriving the Higgs boson mass from CP-violating observables and embedding the full Standard Model gauge group within SU(21).
         </p>
         <p>
           <strong>What is not claimed.</strong> DEG does not yet constitute a complete theory of quantum gravity. The derivations rest on statistical and thermodynamic assumptions whose justification at the full quantum level is an open problem. The programme is offered as a coherent and falsifiable research direction, not as a finished theory. Open problems and limitations are stated explicitly in each paper.
@@ -648,12 +673,12 @@
         <a class="contact-email" href="mailto:matteo@deg-gravity.com">matteo@deg-gravity.com</a>
         <p class="contact-note">
           I am an independent researcher based in Madrid. Collaboration enquiries and comments from researchers with relevant expertise are very welcome.<br><br>
-          The two papers above contain full derivations, explicit uncertainty budgets, and a list of open problems. Nothing is hidden behind a paywall or submission requirement.
+          The papers above contain full derivations, explicit uncertainty budgets, and a list of open problems. Nothing is hidden behind a paywall or submission requirement.
         </p>
       </div>
       <div style="font-size: 0.93rem; color: var(--ink-mid); line-height: 1.78; padding-top: 0.2rem;">
         <p style="margin-bottom: 1rem;">
-          Both preprints are available directly on this page as PDF. They represent work in progress and will be updated as revisions are made prior to submission.
+          All preprints are available directly on this page as PDF. They represent work in progress and will be updated as revisions are made prior to submission.
         </p>
         <p style="color: var(--ink-light); font-family: var(--sans); font-size: 0.82rem; line-height: 1.65;">
           If you are a physicist encountering DEG for the first time and would like to discuss the approach, its foundations, or its limitations, please feel free to write. I am also happy to share derivation notes on specific points not fully developed in the papers.
@@ -681,6 +706,13 @@ function renderMath() {
     throwOnError: false
   });
 }
+
+const toggle = document.getElementById('navToggle');
+const links  = document.getElementById('navLinks');
+toggle.addEventListener('click', () => links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () => links.classList.remove('open'))
+);
 </script>
 </body>
 </html>
