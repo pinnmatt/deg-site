@@ -31,8 +31,8 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { font-size: 17px; scroll-behavior: smooth; }
-  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+  html { font-size: 17px; scroll-behavior: smooth; overflow-x: hidden; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--serif); line-height: 1.75; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
   /* ── Nav ── */
   nav { border-bottom: 1px solid var(--rule); padding: 1.1rem 0; position: sticky; top: 0; z-index: 100; background: var(--paper); }
@@ -70,6 +70,10 @@
   .author-line a { color: var(--accent-mid); text-decoration: none; }
   .author-line a:hover { text-decoration: underline; }
   .sep { color: var(--rule); }
+  @media (max-width: 480px) {
+    .author-line { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .sep { display: none; }
+  }
 
   /* ── Postulate ── */
   .postulate-block { background: var(--paper-warm); border: 1px solid var(--rule); border-left: 3px solid var(--accent); border-radius: 3px; padding: 2rem 2.4rem; margin-bottom: 0; }
@@ -241,7 +245,7 @@
         <div class="hero-stat-l">Falsifiable predictions</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-n">4</div>
+        <div class="hero-stat-n">6</div>
         <div class="hero-stat-l">Preprints available</div>
       </div>
     </div>
@@ -611,7 +615,7 @@
           <ul class="timeline">
             <li><span class="tl-phase">Phase 0</span><span class="tl-title">Foundations — time, Newton's law, cosmological constant</span><span class="tl-status ready">submitted</span></li>
             <li><span class="tl-phase">Phase 1</span><span class="tl-title">Particle physics — Higgs mass, Standard Model embedding</span><span class="tl-status ready">preprint ready</span></li>
-            <li><span class="tl-phase">Phase 2</span><span class="tl-title">Quantum gravity — black hole unitarity, gravitational waves</span><span class="tl-status">in preparation</span></li>
+            <li><span class="tl-phase">Phase 2</span><span class="tl-title">Quantum gravity — black hole unitarity, gravitational waves</span><span class="tl-status ready">preprint ready</span></li>
             <li><span class="tl-phase">Phase 3</span><span class="tl-title">Cosmology — galaxy dynamics, primordial universe</span><span class="tl-status">planned</span></li>
             <li><span class="tl-phase">Phase 4</span><span class="tl-title">Precision completions — fermion masses, baryogenesis</span><span class="tl-status">planned</span></li>
           </ul>
@@ -659,13 +663,13 @@
       <div class="paper-row">
         <span class="pr-num">V</span>
         <div><div class="pr-title">Black Hole Unitarity, Page Curve, and Gravitational Wave Signatures</div><div class="pr-sub">Letter · BH information paradox, Page curve exact, \(\omega_{\rm BD}^{\rm eff}\approx4\times10^{11}\)</div></div>
-        <span class="pr-status">In preparation</span>
+        <span class="pr-status">Preprint · pending submission</span>
         <a class="btn-pdf-sm" href="Pinna_DEG_V_final.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>PDF</a>
       </div>
       <div class="paper-row">
         <span class="pr-num">VI</span>
         <div><div class="pr-title">Einstein Equations, Area Quantisation, and Emergent Lorentz Invariance</div><div class="pr-sub">Companion · Field equations, \(\Delta A = 4\ln(442)\,\ell_P^2\), Lorentz invariance from SU(21)</div></div>
-        <span class="pr-status">In preparation</span>
+        <span class="pr-status">Preprint · pending submission</span>
         <a class="btn-pdf-sm" href="Pinna_DEG_VI_final.pdf" target="_blank"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2h7l3 3v9H3V2z"/><path d="M10 2v3h3"/><path d="M6 9h4M8 7v4"/></svg>PDF</a>
       </div>
 
