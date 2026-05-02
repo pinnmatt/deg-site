@@ -167,6 +167,7 @@
   @media (max-width: 600px) {
     .paper-row { grid-template-columns: 2rem 1fr; gap: 0 1rem; }
     .btn-pdf-sm, .btn-prep { grid-column: 2; margin-top: 0.5rem; justify-self: start; }
+    .pr-sub { font-size: 0.72rem; word-break: break-word; overflow-wrap: anywhere; }
   }
   .pr-num { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--ink-light); }
   .pr-title { font-family: var(--sans); font-size: 0.84rem; color: var(--ink); }
@@ -190,7 +191,11 @@
   .footer-note { font-family: var(--sans); font-size: 0.73rem; color: var(--ink-light); }
 
   .katex { font-size: 1em !important; }
-  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .katex-display { overflow-x: auto; overflow-y: hidden; }
+  td .katex { font-size: 0.85em !important; }
+  @media (max-width: 480px) { td .katex { font-size: 0.75em !important; } }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+  .table-wrap .data-table { min-width: 600px; width: max-content; }
   .tier3-col li { padding: 0.3rem 0; }
 
   @media (max-width: 480px) {
@@ -198,7 +203,7 @@
     .nav-inner { padding: 0 1.2rem; }
     h1 { font-size: 2.4rem; }
     .hero { padding: 3rem 0 2.5rem; }
-    .hero-stats { gap: 1.5rem; padding: 1rem 1.2rem; }
+    .hero-stats { gap: 1rem 1.5rem; padding: 1rem 1.2rem; }
     .postulate-block { padding: 1.4rem 1.2rem; }
     .section { padding: 2.5rem 0; }
     .data-table { font-size: 0.76rem; }
